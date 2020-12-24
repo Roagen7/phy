@@ -1,13 +1,11 @@
-import pygame
-
 
 class Ball:
-    def __init__(self,x, y, r, m, surface, color, FPS):
+    def __init__(self,x, y, r, m,  color, FPS):
         self.x = x;
         self.y = y;
         self.r = r;
         self.m = m;
-        self.surface = surface
+        #self.surface = surface
         self.color = color
         self.forces = []
         self.FPS = FPS
@@ -110,8 +108,8 @@ class Ball:
 
 
 
-    def draw(self):
-        pygame.draw.circle(self.surface,self.color,[self.x,self.y],self.r,0) 
+    def draw(self, pygame, surface):
+        pygame.draw.circle(surface,self.color,[self.x,self.y],self.r,0) 
 
 
 

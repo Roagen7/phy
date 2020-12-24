@@ -7,4 +7,8 @@ class Force:
         self.value = value
         
 
+    def reevaluate(self, param):
+        
+        return Force(self.direction, self.value*param)
+
 
