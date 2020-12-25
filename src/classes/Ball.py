@@ -86,6 +86,7 @@ class Ball:
         self.y += self.vy
         self.vx += self.ax/self.FPS
         self.vy += self.ay/self.FPS
+        self.clear_forces()
 
     def checkIfCollides(self,other):
         if abs(other.x - self.x + other.vx) <= self.r:
@@ -105,8 +106,6 @@ class Ball:
     
     def clear_forces(self):
         self.forces = []
-
-
 
     def draw(self, pygame, surface):
         pygame.draw.circle(surface,self.color,[self.x,self.y],self.r,0) 
