@@ -1,5 +1,5 @@
 
-def run_collisions(balls, areas, borders, width, height, energy_loss):
+def run_collisions(balls, areas, centers, borders, width, height, energy_loss):
     i = 0
     used = []
 
@@ -32,3 +32,5 @@ def run_collisions(balls, areas, borders, width, height, energy_loss):
     for area in areas:
         area.apply_forces(balls)
 
+    for center in centers:
+        center.apply_forces(balls)

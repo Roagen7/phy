@@ -45,6 +45,7 @@ class Ball:
     
     @v.getter
     def v(self):
+        import math
         return math.sqrt(self.__vy**2 + self.__vx**2)
     
     @ax.getter
@@ -63,15 +64,43 @@ class Ball:
 
     @angle.getter
     def angle(self):
+        import math
         add = 0
-        if (self.vx < 0 and self.vy < 0) or (self.vx < 0 and self.vy > 0):
-            add = math.pi
+        if self.vx == 0 and self.vy == 0:
+            return 0
 
-        if self.vx != 0 and self.vy != 0:
-            return add + math.atan(self.vy/self.vx)
+
         if self.vx == 0 and self.vy != 0:
-            return add + math.pi/2
+            if self.vy < 0:
+                return 3*math.pi/2
+            return math.pi/2
+        if self.vy == 0 and self.vx != 0:
+            if self.vx > 0:
+                return 0
+            return math.pi
+
+        
+        deg = math.atan(abs(abs(self.vy)/abs(self.vx)))
+        quar = self.checkQuarter()
+        
+        if quar == 1:
+            return deg
+        if quar == 2:
+            return math.pi - deg
+        if quar == 3:
+            return math.pi + deg
+        if quar == 4:
+            return 2*math.pi - deg
+        
         return 0
+
+    @angle.setter
+    def angle(self, ang):
+        import math
+        V = self.v
+        self.vx = math.cos(ang) * V
+        self.vy = math.sin(ang) * V  
+
 
     @vx.setter
     def vx(self,vx):
@@ -93,6 +122,19 @@ class Ball:
             if abs(other.y - self.y + other.vy) <= self.r + 3:
                 return True
         return False
+
+    def checkQuarter(self):
+        if self.vx > 0:
+            if self.vy > 0:
+                return 1
+            if self.vy < 0:
+                return 4
+        if self.vx < 0:
+            if self.vy > 0:
+                return 2
+            if self.vy < 0:
+                return 3
+
 
 
     def collision(self,other):
