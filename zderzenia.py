@@ -6,6 +6,7 @@ from src.classes.Ball import Ball
 from src.classes.Force import Force
 from src.classes.Area import Area
 from src.classes.Center import Center
+from src.classes.Pad import Pad
 
 from src.methods.run_collisions import run_collisions
 
@@ -44,8 +45,8 @@ area3 = Area(0, 0, width, height, [], (0,0,0))
 ballx = Ball(0,0,10,20, (250,0,0), FPS)
 ballx.vx = 10
 ballx.vy = 10 
-bally = Ball(450,450, 10, 20, (0,250,0), FPS)
-bally.vx =  10
+bally = Ball(450,0, 10, 20, (0,250,0), FPS)
+bally.vx =  -5
 bally.vy = 10
 
 cent1 = Center(500, 500, 10, 5, (150,150,150), Force("x", 1), Force("y",1)) 
@@ -53,11 +54,12 @@ cent2 = Center(750, 500, 10, 5, (150,0,150), Force("x", 1), Force("y",1))
 balls = [bally,ballx]
 areas = [area3, area2, area1 ]
 centers = [cent1, cent2]
-bally.angle = 0
 
 balls = [bally]
 areas = []
 centers = []
+
+pad1 = Pad(400, 800, 60, 400, 1)
 
 #for ball in balls:
 #    ball.apply_force(Force("y",ball.m * 10))
@@ -83,7 +85,9 @@ while run:
     for ball in balls:
         ball.move()
         ball.draw(pygame, gameDisplay)
-
+    pad1.draw(pygame, gameDisplay)
+    pad1.bounce(balls)
+    #print(pad1.angle)
     run_collisions(balls,areas,centers,borders,width,height, energy_loss)
     pygame.display.update()
     pygame.time.Clock().tick(FPS)
