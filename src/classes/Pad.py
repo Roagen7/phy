@@ -31,24 +31,40 @@ class Pad:
 
     def bounce(self,balls):
         import math
+
         for ball in balls:
-            cal = ball.vx/2
+            if ball.deflect:
+                continue
+            if self.x1 == self.x2:
+                if min(self.y1, self.y2) < ball.y < max(self.y1,self.y2):
+                    if abs(self.x1 - ball.x) < ball.r  + ball.v:
+                        ball.vx *= -1
+                        ball.deflect = True 
+                continue
+            
+            if self.y1 == self.y2:
+                if min(self.x1, self.x2) < ball.x < max(self.x1, self.x2):
+                    if abs(self.y1 - ball.y) < ball.r + ball.v:
+                        ball.vy *= -1
+                        ball.deflect = True
+                continue
+
             if ( min(self.x1, self.x2) < ball.x < max(self.x2,self.x1) ) and ( min(self.y1, self.y2) < ball.y < max(self.y1,self.y2) ):  
-                if(self.x2 == self.x1):
-                    if(abs(ball.x == self.x1)):
-                        ball.vx *= -1                    
-
-                else:
                                     
-                    a = (self.y2-self.y1)/(self.x2-self.x1)
-                    b = self.y1 - (a * self.x1)
+                a = (self.y2-self.y1)/(self.x2-self.x1)
+                b = self.y1 - (a * self.x1)
 
-                    if(abs(ball.y - ball.x * a - b) < 2 * ball.r + ball.v):
-                        change_angle = math.pi/2 - (self.angle - ball.angle)
-                        ball.angle += 2*(self.angle-ball.angle)
-                        #ball.move()
-                        #ball.vx *= -1
-                        #ball.vy *= -1
+                if(abs(ball.y - ball.x * a - b) < ball.r + ball.v):
+                    #if abs(ball.y - b - a * ball.x)/math.sqrt(a*a + 1) < abs(ball.y + ball.vy - b - a * (ball.x + ball.vx))/math.sqrt(a*a+1):
+                    #    return
+
+                    change_angle = math.pi/2 - (self.angle - ball.angle)
+                    ball.angle += 2*(self.angle-ball.angle)
+                    ball.deflect = True
+                    continue
+                    #ball.move()
+                    #ball.vx *= -1
+                    #ball.vy *= -1
 
 
 

@@ -1,5 +1,5 @@
 
-def run_collisions(balls, areas, centers, borders, width, height, energy_loss):
+def run_collisions(balls, areas, centers, pads, borders, width, height, energy_loss, counter):
     i = 0
     used = []
 
@@ -28,9 +28,15 @@ def run_collisions(balls, areas, centers, borders, width, height, energy_loss):
             ball.vy *= -1
             ball.vy /= energy_loss
             ball.y = height-borders
+
+        if counter % 5 == 0:
+            ball.deflect = False
                 
     for area in areas:
         area.apply_forces(balls)
 
     for center in centers:
         center.apply_forces(balls)
+
+    for pad in pads:
+        pad.bounce(balls)

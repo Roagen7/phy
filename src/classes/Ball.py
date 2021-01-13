@@ -9,7 +9,8 @@ class Ball:
         self.color = color
         self.forces = []
         self.FPS = FPS
-    
+        deflect = False
+
     @property 
     def ax(self):
         return self.ax        
@@ -116,6 +117,10 @@ class Ball:
         self.vx += self.ax/self.FPS
         self.vy += self.ay/self.FPS
         self.clear_forces()
+
+    def move_away(self):
+        self.x += self.vx/abs(self.vx) * self.r
+        self.y += self.vy/abs(self.vy) * self.r
 
     def checkIfCollides(self,other):
         if abs(other.x - self.x + other.vx) <= self.r:
