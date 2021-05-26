@@ -101,7 +101,6 @@ while run:
     for pad in pads:
         pad.draw(pygame, gameDisplay)
 
-    #print(pad1.angle)
     run_collisions(balls,areas,centers,pads,borders,width,height, energy_loss, counter)
     pygame.display.update()
     pygame.time.Clock().tick(FPS)

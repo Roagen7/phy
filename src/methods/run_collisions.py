@@ -4,7 +4,6 @@ def run_collisions(balls, areas, centers, pads, borders, width, height, energy_l
     used = []
 
     for ball1 in balls:
-        #print(i+1,ball1.angle)        
         j = 0
         for ball2 in balls:
             if i != j and ball1.checkIfCollides(ball2):
